@@ -1,0 +1,9 @@
+en-US-GuyNeural
+en-IN-PrabhatNeural
+en-GB-RyanNeural
+en-CA-LiamNeural
+en-AU-WilliamNeural
+
+
+hi-IN-MadhurNeural
+hi-IN-SwaraNeural

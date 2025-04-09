@@ -1,0 +1,46 @@
+Here's a simple Python program that generates a random password:
+
+```
+import random
+import string
+
+def generate_password(length):
+    letters = string.ascii_letters
+    digits = string.digits
+    punctuation = string.punctuation
+
+    all_characters = letters + digits + punctuation
+    password = ''.join(random.choice(all_characters) for _ in range(length))
+    return password
+
+length = int(input("Enter the length of the password: "))
+print("Generated password: ", generate_password(length))
+```
+
+This program will ask you to input the length of the password you want to generate. It will then generate a random password of that length using a combination of uppercase and lowercase letters, digits, and punctuation marks.
+
+For example, if you input 12, the program might generate a password like "H8d!e4P#Lp".
+
+Let me know if you have any other requests or if you'd like me to write something else for you!
+
+Here's another Python program that generates a code using a Caesar cipher:
+
+```
+def generate_caesar_code(text, shift):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    shifted_alphabet = alphabet[shift:] + alphabet[:shift]
+    table = str.maketrans(alphabet + alphabet.upper(), shifted_alphabet + shifted_alphabet.upper())
+
+    code = text.translate(table)
+    return code
+
+text = input("Enter the text: ")
+shift = int(input("Enter the shift: "))
+print("Generated code: ", generate_caesar_code(text, shift))
+```
+
+This program will ask you to input a text and a shift value. It will then generate a Caesar cipher code by shifting each letter in the text by the specified number of positions. The shift can be a positive or negative value.
+
+For example, if you input "hello" and a shift of 3, the program might generate a code like "khoor".
+
+Let me know if you have any other requests or if you'd like me to write something else for you!

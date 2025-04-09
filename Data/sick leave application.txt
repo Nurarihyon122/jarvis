@@ -1,0 +1,31 @@
+Here is a sample sick leave application:
+
+[Your Name]
+[Your Address]
+[City, State, Pin Code]
+[Date]
+
+[Recipient's Name]
+[Recipient's Designation]
+[Company/Organization Name]
+[Company/Organization Address]
+[City, State, Pin Code]
+
+Subject: Sick Leave Application
+
+Dear [Recipient's Name],
+
+I am writing to request a sick leave on [Date of Leave] as I am currently not feeling well and am unable to come to work. I am suffering from [briefly mention your illness or reason for leave].
+
+I am under medical care and my doctor has advised me to take some rest and recover. I apologize for any inconvenience this may cause and will make sure to catch up on any missed work as soon as I am feeling better.
+
+I would like to request a [number] day(s) leave starting from [Date of Leave] and returning to work on [Date of Return].
+
+Thank you for considering my request.
+
+Sincerely,
+
+[Your Signature]
+[Your Name]
+
+Note: This is a sample and you should modify it according to your organization's policies and your specific situation.

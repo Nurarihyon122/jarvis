@@ -1,0 +1,24 @@
+Here is a simple Python program that generates a random code:
+
+```
+import random
+import string
+
+def generate_code(length):
+    letters = string.ascii_letters
+    digits = string.digits
+    punctuation = string.punctuation
+    all_characters = letters + digits + punctuation
+
+    code = ''.join(random.choice(all_characters) for _ in range(length))
+    return code
+
+length = int(input("Enter the length of the code: "))
+print("Generated code: ", generate_code(length))
+```
+
+This program will ask you to input the length of the code you want to generate. It will then generate a random code of that length using a combination of uppercase and lowercase letters, digits, and punctuation marks.
+
+For example, if you input 8, the program might generate a code like "G8d!e4P".
+
+Let me know if you have any other requests or if you'd like me to write something else for you!

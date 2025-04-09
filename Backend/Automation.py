@@ -1,4 +1,8 @@
 # Import required libraries
+from AppOpener.features import AppNotFound  # <-- This is needed to catch the specific error
+from Backend.TextToSpeech import TextToSpeech  # Optional: if you're using TTS
+
+
 from AppOpener import close, open as appopen # Import functions to open and close apps.
 from webbrowser import open as webopen # Import web browser functionality.
 from pywhatkit import search, playonyt # Import functions for Google search and YouTube playback.
@@ -34,6 +38,29 @@ professional_responses = [
 
 messages =[]
 
+def fetch_search_html(query):
+    headers = {
+        "User-Agent": "Mozilla/5.0"
+    }
+    response = requests.get(
+        f"https://www.google.com/search?q={query}",
+        headers=headers
+    )
+    return response.text
+
+def extract_links(html):
+    soup = BeautifulSoup(html, "html.parser")
+    links = []
+
+    for a in soup.find_all("a", href=True):
+        href = a["href"]
+        if href.startswith("/url?q="):
+            clean_link = href.split("/url?q=")[1].split("&")[0]
+            if not clean_link.startswith("https://www.google.com"):
+                links.append(clean_link)
+
+    return links
+
 # System message to provide context to the chatbot.
 SystemChatBot = [{"role": "system", "content": f"Hello, I am {os.environ['Username']}, You're a content writer. You have to write content like lettrs, codes, applications, essays, notes, songs, poems etc."}]
 # Function to perform a Google search.
@@ -42,6 +69,9 @@ def GoogleSearch(Topic):
     return True # Indicate success.
 # Function to generate content using AI and save it to a file.
 def Content (Topic):
+
+
+
 
 
 # Nested function to open file in Notepad.
@@ -96,38 +126,35 @@ def PlayYoutube (query):
     playonyt (query) # Use pywhatkit's playonyt function to play the video.
     return True # Indicate success.
 
-PlayYoutube("badn pe sitaare")
+
 
 # Function to open an application or a relevant webpage.
-def OpenApp(app, sess=requests.session()):
+def OpenApp(app):
     try:
-        appopen(app, match_closest=True, output=True, throw_error=True) # Attempt to open the app.
-        return True # Indicate success.
-    except:
-    # Nested function to extract links from HTML content.
-        def extract_links(html):
-            if html is None:
-                return [ ]
-            soup = BeautifulSoup(html, 'html.parser') # Parse the HTML content.
-            links = soup.find_all('a', {'jsname': 'UWckNb'}) # Find relevan I links.
-            return [link.get('href') for link in links] # Return the links.
-        # Nested function to perform a Google search and retrieve HTML.
-        def search_google(query):
-            url =f"http://www.google.com/search?q={query}"
-            headers ={"User-Agent": useragent}
-            response = sess.get(url, headers=headers)
-            
-            if response.status_code == 200:
-                return response.text
+        appopen(app, match_closest=True, output=True, throw_error=True)
+        print(f"[+] Opened {app} as a local application.")
+    except AppNotFound as e:
+        print(f"[!] App not found: {app}. Attempting fallback via browser. Error: {e}")
+
+        if app.lower() == "youtube":
+            webbrowser.open("https://www.youtube.com")
+            TextToSpeech("Opening YouTube in your browser.")
+            return
+
+        try:
+            html = fetch_search_html(app)
+            links = extract_links(html)
+            if links:
+                link = links[0]
+                webbrowser.open(link)
+                TextToSpeech(f"Opening {app} in your browser.")
             else:
-                print("Failed to retrieve search results")
-            return None
-        html = search_google(app) # Perform a Google search for the app.
-        
-        if html:
-            link = extract_links(html)[0] # Extract first link from the search results.
-            webopen(link)
-        return True
+                webbrowser.open(f"https://www.google.com/search?q={app}")
+                TextToSpeech(f"I couldn't find a direct link, but opened search results for {app}.")
+        except Exception as e:
+            print(f"[!] Failed to fetch/search. Error: {e}")
+            webbrowser.open(f"https://www.google.com/search?q={app}")
+            TextToSpeech(f"I had trouble opening {app}, so I opened Google search instead.")
 
 
 def CloseApp(app):
